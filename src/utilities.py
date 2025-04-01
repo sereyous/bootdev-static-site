@@ -1,19 +1,19 @@
 import os
 import shutil
 
-def copy_static_to_public():
+def copy_static_to_output_dir(output_dir):
     current_file = os.path.abspath(__file__)
     current_dir = os.path.dirname(current_file)
     project_root = os.path.dirname(current_dir)
 
     static_path = os.path.join(project_root, "static")
-    public_path = os.path.join(project_root, "public")
+    output_dir  = os.path.join(project_root, output_dir)
 
-    if os.path.exists(public_path):
-        shutil.rmtree(public_path)
-    os.mkdir(public_path)
+    if os.path.exists(output_dir):
+        shutil.rmtree(output_dir)
+    os.mkdir(output_dir)
 
-    recursive_copy(static_path, public_path)
+    recursive_copy(static_path, output_dir)
 
 def recursive_copy(source_path, dest_path):
     src_files = os.listdir(source_path)
@@ -27,7 +27,4 @@ def recursive_copy(source_path, dest_path):
             new_dest = os.path.join(dest_path, file)
             os.mkdir(new_dest)
             recursive_copy(full_source_path, new_dest)
-
-
-copy_static_to_public()
 
